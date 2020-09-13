@@ -1,5 +1,4 @@
 #!/bin/bash
-#PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/{USERNAME}/bin
 
 #
 #——————————————————————————-
@@ -22,4 +21,3 @@ echo "Shutting down Minecraft Server.. Theres a creeper nearby.."
 # Copyright 2020
 # Do not distribute without permission.
 # END
-
