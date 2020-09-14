@@ -32,7 +32,7 @@ sudo ./menu.sh
 
 ### Things To Consider Before Running The Main Menu
 Make sure these are in your minecraft folder:
-- The Minecraft SVN repository checkout.
+- The Minecraft SVN repository checkout (should be named, *Minecraft*).
 - server.jar, menu.sh, server_backup.sh, server_restore.sh, set_crontab.sh, start.sh, and stop.sh.
 - All the files and folders created when generating a minecraft world.
 
