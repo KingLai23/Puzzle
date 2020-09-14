@@ -16,7 +16,7 @@ cd ${minecraft_dir}
 echo "Starting Minecraft 1.16.1 Server HOLAYY"
 echo "ssss.. don't die to creepers.. KABOOM"
 echo ""
-echo "screen -r minecraft to open and Ctrl-A, Ctrl-D to close"
+echo "sudo screen -r minecraft to open and Ctrl-A, Ctrl-D to close"
 /usr/bin/screen -dmS minecraft /usr/bin/java -jar -Xms512M -Xmx6144M ${minecraft_dir}/server.jar --nogui
 
 # Prepared by Zi Cheng Huang and King Lai.
