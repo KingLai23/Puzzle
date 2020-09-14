@@ -4,13 +4,16 @@ server_status=0
 
 clear
 
+echo 0 > requirements.txt
+
 file_exists () {
   for filename in "$@"
   do
     if [ -e $filename ]; then
-      echo $filename exists
+      echo "[MSA] ~ $filename found... [GOOD]"
     else
-      echo $filename does not exist
+      echo "[MSA] ~ $filename not found... [BAD]"
+      echo 1 > requirements.txt
     fi
   done
 }
@@ -23,36 +26,44 @@ is_server_running () {
   fi
 }
 
+while :
+do
+
 file_exists server.jar start.sh stop.sh server_backup.sh server_restore.sh set_crontab.sh
 
 java -version > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-  echo "java is installed"
+  echo "[MSA] ~ Java is installed... [GOOD]"
 else 
-  echo "java is not installed"
+  echo "[MSA] ~ Java is not installed... [BAD]"
+  echo 1 > requirements.txt
 fi
 
-printf "\n\n 
-███╗   ███╗██╗███╗   ██╗███████╗ ██████╗██████╗  █████╗ ███████╗████████╗    ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗  
-████╗ ████║██║████╗  ██║██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗ 
-██╔████╔██║██║██╔██╗ ██║█████╗  ██║     ██████╔╝███████║█████╗     ██║       ███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝ 
-██║╚██╔╝██║██║██║╚██╗██║██╔══╝  ██║     ██╔══██╗██╔══██║██╔══╝     ██║       ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔══██╗ 
-██║ ╚═╝ ██║██║██║ ╚████║███████╗╚██████╗██║  ██║██║  ██║██║        ██║       ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║ 
-╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝       ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝ 
-                                                                                                                               
- █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗██╗███████╗████████╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗     ██╗    ██████╗ 
-██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║██║██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║    ███║   ██╔═████╗
-███████║██║  ██║██╔████╔██║██║██╔██╗ ██║██║███████╗   ██║   ██████╔╝███████║   ██║   ██║██║   ██║██╔██╗ ██║    ╚██║   ██║██╔██║
-██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║██║╚════██║   ██║   ██╔══██╗██╔══██║   ██║   ██║██║   ██║██║╚██╗██║     ██║   ████╔╝██║
-██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║██║███████║   ██║   ██║  ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║     ██║██╗╚██████╔╝
-╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝     ╚═╝╚═╝ ╚═════╝ 
-                                                                                                                                \n"
+if  grep -q '1' requirements.txt ; then
+  printf "\nWARNING:\nMissing requirements (marked as [BAD])."
+  printf "\nPlease make sure you satisfy the requirements in order to continue using MSA.\n\n"
+  exit 1
+fi
+
+echo "
+██████╗ ██╗   ██╗███████╗███████╗██╗     ███████╗     ██╗    ██████╗ 
+██╔══██╗██║   ██║╚══███╔╝╚══███╔╝██║     ██╔════╝    ███║   ██╔═████╗
+██████╔╝██║   ██║  ███╔╝   ███╔╝ ██║     █████╗      ╚██║   ██║██╔██║
+██╔═══╝ ██║   ██║ ███╔╝   ███╔╝  ██║     ██╔══╝       ██║   ████╔╝██║
+██║     ╚██████╔╝███████╗███████╗███████╗███████╗     ██║██╗╚██████╔╝
+╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝╚══════╝     ╚═╝╚═╝ ╚═════╝                                                                      
+A Minecraft Server Manager written by King Lai and Zi Cheng Huang.
+"
 
 is_server_running
 if [ $server_status -eq 1 ]; then
-  echo "server is running"
+  echo "[]-----------------------[]"
+  echo " | Server Status: ONLINE |"
+  echo "[]-----------------------[]"
 else
-  echo "server is not running"
+  echo "[]------------------------[]"
+  echo " | Server Status: OFFLINE |"
+  echo "[]------------------------[]"
 fi
 
 printf "
@@ -62,8 +73,10 @@ printf "
 [4] Restore Server
 [5] Set Crontab
 [6] Exit
+
 "
 
+echo -n "Enter an option: "
 read option
 
 if [ $option == '1' ]; then
@@ -87,22 +100,22 @@ elif [ $option == '4' ]; then
 [1]       Go Back
 [2]       Restore Latest
 [Any Key] Restore Custom
+
 "
   
+  echo -n "Enter an option: "
   read option4
   
   if [ $option4 == '1' ]; then
-    print_menu_screen
+    echo ""
   elif [ $option4 == '2' ]; then
     sudo ./server_restore.sh
   else
-    cd Minecraft
     echo "Pick a date to restore from:"
-    ls | grep "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]--[0-9][0-9]_[0-9][0-9]_[0-9][0-9]" 
+    ls Minecraft | grep "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]--[0-9][0-9]_[0-9][0-9]_[0-9][0-9]" 
     
     read restore_name
     
-    cd ..
     sudo ./server_restore.sh $restore_name
   fi
 elif [ $option == '5' ]; then
@@ -110,12 +123,14 @@ elif [ $option == '5' ]; then
 [1]       Go Back
 [2]       Set Default
 [Any Key] Set Custom
-"
 
+"
+  
+  echo -n "Enter an option: "
   read option5
   
   if [ $option5 == '1' ]; then
-    print_menu_screen
+    echo ""  
   elif [ $option5 == '2' ]; then
     sudo ./set_crontab.sh
   else 
@@ -140,4 +155,7 @@ else
   echo "bad"
 fi
 
-
+echo "Returning to menu screen in 5 seconds."
+sleep 5
+clear
+done
