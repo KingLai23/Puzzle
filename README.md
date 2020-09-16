@@ -78,7 +78,7 @@ Next, port forward your Linux server for both SSH and Minecraft. The default por
 ![Port Forwarding](Pictures/Port Forwarding.jpg)
 
 ### (4) Setting-up the Minecraft Server
-Navigate to ![https://www.minecraft.net/en-us/download/server](https://www.minecraft.net/en-us/download/server) and download the latest **server.jar** file. At the time of writing, the current version of Minecraft is 1.16.3, so the jar file is named *minecraft_server.1.16.3.jar*. Place it in /home/$USERNAME/minecraft and rename it to *server.jar*.
+Navigate to <https://www.minecraft.net/en-us/download/server> and download the latest **server.jar** file. At the time of writing, the current version of Minecraft is 1.16.3, so the jar file is named *minecraft_server.1.16.3.jar*. Place it in /home/$USERNAME/minecraft and rename it to *server.jar*.
 
 Open a terminal in /home/$USERNAME/minecraft, and run the jar file with the following command:
 ```
