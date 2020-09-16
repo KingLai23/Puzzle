@@ -20,7 +20,7 @@ Just make sure that your SVN repository follows this:
 - There is a folder in Minecraft named, *logs* (ie. Minecraft/logs).
 - There is a folder in Minecraft named, *longterm_backup* (ie. Minecraft/longterm_backup).
 
-### (2) Setting-up Server Administration
+### (2) Setting-up the Linux Machine
 As mentioned before, a linux machine is recommended to host the Minecraft server. It is possible to do it on Windows instead, but it is much more resource intensive and the terminal is not as great. At the time of writing, we are using **Lubuntu 18.04**. However, any Ubuntu based installation should work.
 
 After installing Lubuntu, type the following in terminal to receive the latest updates and packages:
@@ -56,6 +56,16 @@ sudo systemctl start ssh
 to start the service. The service will now autostart on every system reboot.
 
 To check if the SSH is working, type `ssh localhost` and see if you can connect to your own machine. Type `exit` to exit the SSH session.
+
+To install **SVN**, type:
+```
+sudo apt install subversion
+```
+
+### (3) Configuring the Network Settings
+Open up your internet browser, and type `192.168.0.1` to log in to your router. The username and password will be specific to its model.
+Reserve your linux machine's local ip address. This is called **DHCP-Reservation**. This ensures that you will be able to reliably connect to your server via SSH. In our case, the Linux machine's local ip is *192.168.0.22*.
+![DHCP-Reservation](Pictures/DHCP-Reservation.jpg)  
 
 ## How to Use Puzzle 
 ### Run The Main Menu
