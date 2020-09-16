@@ -119,19 +119,30 @@ for all 6 of the afrementioned files. This is to make sure that all the files ar
 
 Open Puzzle by typing `sudo ./menu.sh`, and set the crontab by entering option **5**. A more detailed guide is described below.
 
-## How to Use Puzzle 
-### Run The Main Menu
-To run the main menu, go into the *minecraft* folder, and type the following:
-```
-sudo ./menu.sh
-```
-
-### Things To Consider Before Running The Main Menu
+## How to Use Puzzle
+### Things To Consider Before Running Puzzle
 Make sure these are in your minecraft folder:
 - The Minecraft SVN repository checkout (should be named, *Minecraft*).
 - server.jar, menu.sh, server_backup.sh, server_restore.sh, set_crontab.sh, start.sh, and stop.sh.
 - All the files and folders created when generating a minecraft world.
 
 Make sure you have Java installed on your Linux machine.
+
+### Set Crontab
+The Linux Cron Daemon is used to automatically backup the server. At a preset time, it will copy the *world* folder to the SVN repository and push it to the remote device.
+To set the time, enter **5** in the main menu. Press **2** for the default time, which is 5am every day.
+To set your own time, press any key.
+
+There are 5 parameters for crontab. Namely,
+```
+minute
+hour
+day_of_month
+month
+day_of_week
+```
+
+For example, to set the backup to 4:30am every day, you would enter `30`, `4`, `*`, `*`, and `*`, in that order.
+
 
 That's all, EASY.
