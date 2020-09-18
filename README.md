@@ -1,7 +1,7 @@
 # Puzzle 1.0 - Minecraft Server Administration
 Simple Shell Scripting to backup, restore, and maintain a Minecraft server running on a Linux machine.
 
-!["Puzzle Menu Screen"](Pictures/title.PNG)
+!["Puzzle Menu Screen"](Pictures/title.png)
 
 ## Requirements
 - A Linux machine for server administration
