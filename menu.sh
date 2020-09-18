@@ -58,11 +58,11 @@ A Minecraft Server Manager written by King Lai and Zi Cheng Huang.
 is_server_running
 if [ $server_status -eq 1 ]; then
   echo "[]-----------------------[]"
-  echo " | Server Status: ONLINE |"
+  echo -e " | Server Status: \033[0;32mONLINE \\033[37m|"
   echo "[]-----------------------[]"
 else
   echo "[]------------------------[]"
-  echo " | Server Status: OFFLINE |"
+  echo -e " | Server Status: \033[0;31mOFFLINE \\033[37m|"
   echo "[]------------------------[]"
 fi
 
@@ -82,7 +82,7 @@ read option
 if [ $option == '1' ]; then
   is_server_running
   if [ $server_status -eq 1 ]; then
-    echo "server is alreay running, can't start again"
+    printf "\nThe server is already online. Cannot start again.\n\n"
   else
     sudo ./start.sh
   fi
@@ -150,12 +150,22 @@ Write '*' for every."
     sudo ./set_crontab.sh "$cron1" "$cron2" "$cron3" "$cron4" "$cron5"
   fi 
 elif [ $option == '6' ]; then
+  clear
   exit 0
 else 
   echo "bad"
 fi
 
-echo "Returning to menu screen in 5 seconds."
-sleep 5
+echo -ne "Returning to menu screen in 5s. \r"
+sleep 1
+echo -ne "Returning to menu screen in 4s. \r"
+sleep 1
+echo -ne "Returning to menu screen in 3s. \r"
+sleep 1
+echo -ne "Returning to menu screen in 2s. \r"
+sleep 1
+echo -ne "Returning to menu screen in 1s. \r"
+sleep 1
+
 clear
 done
