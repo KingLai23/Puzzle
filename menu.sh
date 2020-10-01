@@ -1,5 +1,12 @@
 #!/bin/bash
 
+cd /home
+USERNAME=$(ls | cut -f 1 -d " ")
+
+minecraft_dir=/home/${USERNAME}/minecraft
+
+cd ${minecraft_dir}
+
 server_status=0
 
 clear
