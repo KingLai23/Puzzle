@@ -55,7 +55,8 @@ if [ $(date +%A) == ${LONGTERM_BACKUP_DAY} ]; then
   
   cd ${svn_dir}/longterm_backup/
   sudo zip -r ${start_time}-longterm.zip ${start_time}-longterm
-  sudo rm -r ${start_time}-longterm 
+  sudo rm -r ${start_time}-longterm
+  sudo chmod -R 755 ${start_time}-longterm.zip
   
   svn add ${start_time}-longterm.zip
 fi
