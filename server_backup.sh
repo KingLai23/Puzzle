@@ -53,8 +53,11 @@ if [ $(date +%A) == ${LONGTERM_BACKUP_DAY} ]; then
   mkdir ${svn_dir}/longterm_backup/${start_time}-longterm
   cp -r ${minecraft_dir}/world ${svn_dir}/longterm_backup/${start_time}-longterm
   
-  cd ${svn_dir}/longterm_backup
-  svn add ${start_time}-longterm
+  cd ${svn_dir}/longterm_backup/
+  sudo zip -r ${start_time}-longterm.zip ${start_time}-longterm
+  sudo rm -r ${start_time}-longterm 
+  
+  svn add ${start_time}-longterm.zip
 fi
 
 cd ${svn_dir}
