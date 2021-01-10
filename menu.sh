@@ -35,8 +35,8 @@ is_server_running () {
 
 while :
 do
-
-file_exists server.jar start.sh stop.sh server_backup.sh server_restore.sh set_crontab.sh
+CURRENT_WORLD=$(<${minecraft_dir}/current_world.txt)
+file_exists paper-246.jar start.sh stop.sh server_backup.sh server_restore.sh set_crontab.sh
 
 java -version > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -53,25 +53,34 @@ if  grep -q '1' requirements.txt ; then
 fi
 
 echo "
-██████╗ ██╗   ██╗███████╗███████╗██╗     ███████╗     ██╗    ██████╗ 
-██╔══██╗██║   ██║╚══███╔╝╚══███╔╝██║     ██╔════╝    ███║   ██╔═████╗
-██████╔╝██║   ██║  ███╔╝   ███╔╝ ██║     █████╗      ╚██║   ██║██╔██║
-██╔═══╝ ██║   ██║ ███╔╝   ███╔╝  ██║     ██╔══╝       ██║   ████╔╝██║
-██║     ╚██████╔╝███████╗███████╗███████╗███████╗     ██║██╗╚██████╔╝
-╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝╚══════╝     ╚═╝╚═╝ ╚═════╝                                                                      
+██████╗░██╗░░░██╗███████╗███████╗██╗░░░░░███████╗  ░░███╗░░░░░██████╗░
+██╔══██╗██║░░░██║╚════██║╚════██║██║░░░░░██╔════╝  ░████║░░░░░╚════██╗
+██████╔╝██║░░░██║░░███╔═╝░░███╔═╝██║░░░░░█████╗░░  ██╔██║░░░░░░░███╔═╝
+██╔═══╝░██║░░░██║██╔══╝░░██╔══╝░░██║░░░░░██╔══╝░░  ╚═╝██║░░░░░██╔══╝░░
+██║░░░░░╚██████╔╝███████╗███████╗███████╗███████╗  ███████╗██╗███████╗
+╚═╝░░░░░░╚═════╝░╚══════╝╚══════╝╚══════╝╚══════╝  ╚══════╝╚═╝╚══════╝                                                                     
 A Minecraft Server Manager written by King Lai and Zi Cheng Huang.
 "
 
 is_server_running
 if [ $server_status -eq 1 ]; then
   echo "[]-----------------------[]"
-  echo -e " | Server Status: \033[0;32mONLINE \\033[37m|"
+  echo -e "  Server Status: \033[0;32mONLINE \\033[37m"
+  echo -e "  World: \033[0;32m$CURRENT_WORLD \\033[37m"
   echo "[]-----------------------[]"
 else
   echo "[]------------------------[]"
-  echo -e " | Server Status: \033[0;31mOFFLINE \\033[37m|"
+  echo -e "  Server Status: \033[0;31mOFFLINE \\033[37m"
+  echo -e "  World: \033[0;32m$CURRENT_WORLD \\033[37m"
   echo "[]------------------------[]"
 fi
+
+if [ "$CURRENT_WORLD" == "no_world" ]; then
+  echo "There is no world loaded. Be very careful about backing up. Starting the server will create a fresh world file."
+fi
+
+printf "\nListing all worlds in repository:\n"
+    ls -1 ${minecraft_dir}/world_list/
 
 printf "
 [1] Start Server
@@ -79,7 +88,10 @@ printf "
 [3] Backup Server
 [4] Restore Server
 [5] Set Crontab
-[6] Exit
+[6] Create World
+[7] Remove World
+[8] Switch World
+[9] Exit
 
 "
 
@@ -157,8 +169,44 @@ Write '*' for every."
     sudo ./set_crontab.sh "$cron1" "$cron2" "$cron3" "$cron4" "$cron5"
   fi 
 elif [ $option == '6' ]; then
+  is_server_running
+  if [ $server_status -eq 1 ]; then
+    echo "The server is currently running. You cannot do this operation."
+  else 
+    printf "\nListing all worlds in repository:\n"
+    ls -1 ${minecraft_dir}/world_list/
+    printf "\nEnter a world name, making sure it's not a duplicate: "
+    read world_name
+  
+    sudo ./create_world.sh $world_name
+  fi
+elif [ $option == '7' ]; then
+  is_server_running
+  if [ $server_status -eq 1 ]; then
+    echo "The server is currently running. You cannot do this operation."
+  else 
+    printf "\nListing all worlds in repository:\n"
+    ls -1 ${minecraft_dir}/world_list/
+    printf "\nType in the world name to delete: "
+    read world_name
+  
+    sudo ./remove_world.sh $world_name
+  fi
+elif [ $option == '8' ]; then
+  is_server_running
+  if [ $server_status -eq 1 ]; then
+    echo "The server is currently running. You cannot do this operation."
+  else 
+    printf "\nListing all worlds in repository:\n"
+    ls -1 ${minecraft_dir}/world_list/
+    printf "\nType in the world name to switch to: "
+    read world_name
+  
+    sudo ./switch_world.sh $world_name
+  fi
+elif [ $option == '9' ]; then
   clear
-  exit 0
+  exit 0 
 else 
   echo "bad"
 fi
