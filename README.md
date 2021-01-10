@@ -1,11 +1,14 @@
-# [UPDATE 1.2 - Multi-World Support]
-Puzzle is now able to support multiple worlds on the same ip and port. Keep in mind that only one world can be run simultaneously to avoid conflict. To save the currently running world, use option `6` to Create World. You can then give it a unique name to keep track. To switch to a world, use option `8`. A list of already named worlds will appear. Typing the world name will load it into the current world.
+# [UPDATE 1.2] - Multi-World Support
+
+!["Puzzle Menu Screen"](Pictures/puzzle_12.jpg)
+
+Puzzle is now able to support multiple worlds on the same ip and port. Keep in mind that only one world can be run simultaneously to avoid conflict. To save the currently running world, use option `6` to create a world. You can then give it a unique name to keep track. To switch to a world, use option `8`. A list of already named worlds will appear. Typing the world name will load it into the current world.
 
 Option `7` allows for the deletion of worlds. 
 
 Note that if a currently running world is not saved and option `8` is used to switch to an existing world, the current world will be deleted forever. Make sure to use option `6` beforehand.
 
-# [UPDATE 1.1 - Paper Port]
+# [UPDATE 1.1] - Paper Port
 
 Puzzle is now ported over to Paper instead of vanilla. The download for the Paper jar files can be found here: https://papermc.io/downloads
 
