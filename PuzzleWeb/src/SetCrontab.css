@@ -1,0 +1,177 @@
+:root {
+    --setcronbg: #1a1f29;
+    --setcronboxbg: rgb(36, 42, 56);
+    --setcronboxborder: rgb(65, 73, 94);
+    --dropdownbg: rgb(67, 75, 95);
+    --dropdownbghover: rgb(51, 59, 77);
+    --dropdownbgborder: rgb(83, 91, 109);
+}
+
+.set_crontab {}
+
+.sc_header {
+    color: aliceblue;
+    text-align: center;
+}
+
+.sc_header h1 {
+    margin-top: 0;
+    padding-top: 5px;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.sc_header h2 {
+    margin: 0;
+    padding-top: 5px;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.sc_header p {
+    margin-top: 0;
+    padding-top: 5px;
+    font-size: 21px;
+    font-weight: normal;
+}
+
+.sc_box {
+    width: 600px;
+    margin: auto;
+    margin-top: 30px;
+    background-color: var(--setcronboxbg);
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(231, 231, 231);
+    border: 2px solid var(--setcronboxborder);
+}
+
+.sc_box h1 {
+    margin-top: 0;
+    padding-top: 30px;
+    padding-bottom: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sc_freq {
+    margin: auto;
+    width: 60%;
+}
+
+.sc_freq_title {
+    width: 55%;
+    float: left;
+}
+
+.sc_freq_title p {
+    padding-top: 2px;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.sc_freq_dd, .sc_time_select {
+    z-index: 999;
+    width: 45%;
+    float: right;
+    text-align: center;
+    padding: 0;
+    color: rgb(219, 219, 219);
+}
+
+.sc_time_select {
+    width: 45%;
+    float: right;
+}
+
+.sc_freq_dd_header, .sc_time_select_header {
+    margin-bottom: 0;
+    background-color: #1a1f29;
+}
+
+.sc_freq_dd_header p, .sc_time_select_header p {
+    font-family: 'Heebo', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 4px 0px;
+    background-color: var(--dropdownbg);
+    border: solid 2px var(--dropdownbgborder);
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.sc_freq_dd_header p:hover, .sc_freq_dd_list li:hover, .sc_time_select_header p:hover, .sc_time_select_list li:hover {
+    background-color: var(--dropdownbghover);
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    max-height: 120px;
+    overflow: auto;
+    z-index: 999;
+    position: absolute;
+    width: 162px;
+}
+
+.sc_freq_dd_list li, .sc_time_select_list li {
+    list-style-type: none;
+    background-color: var(--dropdownbg);
+    font-family: 'Heebo', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 5px 0px;
+    margin-top: 0;
+    color: rgb(206, 206, 206);
+}
+
+.sc_time_select_list li {
+    font-size: 16px;
+    padding: 5px 0px;
+}
+
+.sc_time_title p {
+    padding-top: 0px;
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.sc_time_title {
+    padding-top: 2px;
+    width: 55%;
+    float: left;  
+}
+
+.sc_confirm {
+    margin: auto;
+    margin-top: 115px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sc_confirm button {
+    background-color: var(--confirmbtn);
+    color: rgb(221, 221, 221);
+    font-size: 17px;
+    width: 225px;
+    height: 45px;
+    margin: 5px 2.5%;
+    cursor: pointer;
+    border-style: none;
+    border: solid 3px var(--confirmbtnborder);
+    border-radius: 50px 50px;
+}
+
+.sc_confirm button:hover {
+    background-color: var(--confirmbtnhvr);
+    border: solid 3px var(--confirmbtnborder);
+    transition: background-color 0.3s linear;
+}
+
+.sc_confirm button:focus {
+    outline: none;
+}

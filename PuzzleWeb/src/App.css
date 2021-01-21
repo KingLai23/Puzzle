@@ -1,0 +1,312 @@
+:root {
+  --bg: #272b33;
+
+  --loginbtn: rgb(61, 75, 90);
+  --loginbtnhover: rgb(55, 64, 75);
+
+  --header: #171b24;
+  --box: #1a1f29;
+  --server_control_btn: #181c25;
+  --box-border: rgb(53, 58, 73);
+  --overlay: rgba(23, 28, 34, 0.5);
+  --loginoverlay: rgba(14, 18, 22, 0.7);
+  --restorebg: #1a1f29;
+  --restoreborder: rgb(45, 53, 66);
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+}
+
+#overlay, #loginoverlay {
+  background-color: var(--overlay);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#loginoverlay {
+  background-color: var(--loginoverlay);
+}
+
+.login-prompt {
+  color: white;
+  margin: auto;
+  margin-top: 22vh;
+  width: 100%;
+  text-align: center;
+}
+
+.login-prompt h1 {
+  font-size: 45px;
+  margin-bottom: 0;
+}
+
+.login-prompt h2 {
+  margin-top: 5px;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+.textarea-wrap {
+  vertical-align: middle;
+  margin-top: 15px;
+}
+
+.login-prompt textarea, .login-prompt input {
+  text-align: center;
+  color: rgb(57, 67, 75);
+  background-color: rgb(172, 172, 172);
+  padding: 16px 10px 8px;
+  height: 40px !important;
+  width: 450px !important;
+  outline: none;
+  font-size: 28px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: normal;
+  resize: none;
+  border-radius: 5px;
+}
+
+.login-prompt button {
+  background-color: var(--loginbtn);
+  color: rgb(221, 221, 221);
+  font-size: 29px;
+  width: 225px;
+  height: 60px;
+  margin: 20px 0;
+  cursor: pointer;
+  border-style: none;
+  border-radius: 5px;
+}
+
+.login-prompt button:hover {
+  background-color: var(--loginbtnhover);
+  transition: background-color 0.3s linear;
+}
+
+.login-prompt button:focus {
+  outline: none;
+}
+
+.login-prompt p {
+  font-size: 20px;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.loading-symbol {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 7px solid var(--loading-wheel);
+  border-bottom: 7px solid var(--loading-wheel);
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
+  animation: spin 2s linear infinite;
+  margin: auto;
+  margin-top: 45vh;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.App {
+  min-height: 100vh;
+  position: relative;
+}
+
+.loading-msg {
+  margin: auto;
+  margin-top: 15px;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.header {
+  background-color: var(--header);
+  box-shadow: 0px 2px rgba(17, 21, 36, 0.733);
+  margin: 0;
+  text-align: center;
+}
+
+.header h1 {
+  text-align: center;
+  font-size: 38px;
+  color: #fff;
+  padding: 10px 0px 8px;
+  margin: 0;
+  margin: auto;
+}
+
+.header button {
+  background-color: var(--loginbtn);
+  color: rgb(221, 221, 221);
+  font-size: 15px;
+  width: 120px;
+  height: 25px;
+  margin-bottom: 18px;
+  cursor: pointer;
+  border-style: none;
+  border-radius: 5px;
+}
+
+.header button:hover {
+  background-color: var(--loginbtnhover);
+  transition: background-color 0.3s linear;
+}
+
+.header button:focus {
+  outline: none;
+}
+
+.version {
+  font-size: 20px;
+}
+
+.ss_title, .ss_status, .ap_title, .ap_info {
+  background-color: var(--box);
+}
+
+.server_status {
+  width: 800px;
+  margin: 100px auto 20px;
+}
+
+.active_players {
+  width: 800px;
+  margin: 190px auto 20px;
+}
+
+.server_status p, .active_players p {
+  color: azure;
+  font-size: 20px;
+  padding: 2px 80px 4px;
+}
+
+.ss_title, .ss_status, .ap_title, .ap_info {
+  width: 50%;
+  float: left;
+}
+
+.ss_title p, .ap_title p {
+  text-align: left;
+}
+
+.ss_status p, .ap_info p {
+  text-align: right;
+}
+
+.server_controls, .server_controls_2 {
+  width: 800px;
+  margin: 280px auto 20px;
+}
+
+.server_controls_2 {
+  margin-top: 0px;
+}
+
+.server_controls button, .server_controls_2 button {
+  background-color: var(--server_control_btn);
+  color: rgb(221, 221, 221);
+  font-size: 18px;
+  width: 21.25%;
+  height: 75px;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-style: none;
+  border: solid 3px var(--box-border);
+  border-radius: 10px;
+}
+
+.server_controls button:hover, .server_controls_2 button:hover {
+  background-color: rgb(32, 35, 43);
+  border: solid 3px rgb(69, 72, 83);
+  transition: background-color 0.3s linear;
+}
+
+.server_controls button:focus, .server_controls_2 button:focus {
+  outline: none;
+}
+
+.server_controls_2 button {
+  width: 47.5%;
+}
+
+#scl {
+  margin-right: 5%;
+}
+
+.restore, .crontab {
+  background-color: var(--restorebg);
+  width: 800px;
+  margin: 0 auto 20px;
+  border-radius: 10px;
+  padding-bottom: 40px;
+  border: solid 2px var(--restoreborder);
+}
+
+.restore_close, .crontab_close {
+  text-align: right;
+}
+
+.restore button, .crontab button {
+  background-color: var(--closebtn);
+  color: rgb(221, 221, 221);
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  margin: 8px 9px 0px;
+  cursor: pointer;
+  border-style: none;
+  border: solid 2px var(--closebtnborder);
+  border-radius: 20px;
+}
+
+.restore button:hover, .crontab button:hover {
+  background-color: var(--closebtnhvr);
+  transition: background-color 0.3s linear;
+}
+
+.restore button:focus, .crontab button:focus {
+  outline: none;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  margin: auto;
+  margin: 0;
+  width: 100%;
+}
+
+.footer p {
+  background-color:rgb(21, 23, 34);
+  padding: 20px 0;
+  margin: 0;
+  color: rgb(161, 161, 161);
+  width: 100%;
+}
