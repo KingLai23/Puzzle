@@ -1,3 +1,13 @@
+# [UPDATE 2.0] - Remote Server Control (Web App)
+
+!["Puzzle Web"](Pictures/puzzleweb.PNG)
+
+Puzzle is now able to provide remote server control through the web. You no longer need to use the full CLI program ("menu/sh").
+
+Currently, Puzzle Web can Start, Stop, Restart, Backup, and Restore the server, and schedule auto-backups.
+
+Note: You can only schedule daily and weekly backups.
+
 # [UPDATE 1.2] - Multi-World Support
 
 !["Puzzle Menu Screen"](Pictures/puzzle_12.jpg)
