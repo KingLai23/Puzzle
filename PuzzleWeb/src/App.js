@@ -16,6 +16,7 @@ function App() {
   const [showRestore, setShowRestore] = useState(false);
   const [showCron, setShowCron] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [showLoginLoading, setShowLoginLoading] = useState(false);
 
   var herokuurl = "https://agile-taiga-59578.herokuapp.com/";
 
@@ -24,7 +25,7 @@ function App() {
     if (loggedInLS != null) {
       signinSuccess();
     }
-  },[])
+  }, [])
 
   const signinSuccess = () => {
     setLoginMsg("");
@@ -46,6 +47,7 @@ function App() {
   }
 
   const authenticate = () => {
+    setShowLoginLoading(true);
     var url = herokuurl + "authenticate?username=" + username + "&password=" + password;
     axios.post(url)
       .then(res => {
@@ -53,8 +55,9 @@ function App() {
           localStorage.setItem('loginCheck', true);
           signinSuccess();
         } else {
-          setLoginMsg("Invalid login credentials..");
+          setLoginMsg("Invalid login credentials...");
         }
+        setShowLoginLoading(false);
       })
       .catch(error => {
         console.log(error.message)
@@ -159,18 +162,28 @@ function App() {
             </div>
 
             <div className="textarea-wrap">
-              <input 
-                type="password" 
+              <input
+                type="password"
                 placeholder="PASSWORD"
                 maxlength="25"
-                id="password_bar" 
+                id="password_bar"
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <button onClick = {() => authenticate()}>Sign In</button>
-            <p>{loginMsg}</p>
+            <button onClick={() => authenticate()}>Sign In</button>
+
+            {showLoginLoading ? (
+              <div>
+                <div className="login-symbol"></div>
+                <div className="loading-msg">Logging in...</div>
+              </div>
+            ) : (
+                <>
+                  <p>{loginMsg}</p>
+                </>
+              )}
           </div>
         </div>
       ) : (
@@ -188,7 +201,7 @@ function App() {
 
       <div className="header">
         <h1>Puzzle <span className="version">v2.0</span></h1>
-        <button onClick = {() => logout()}>Log Out</button>
+        <button onClick={() => logout()}>Log Out</button>
       </div>
 
       <div className="server_status">
