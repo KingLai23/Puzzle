@@ -13,7 +13,7 @@ USERNAME=$(ls | cut -f 1 -d " ")
 minecraft_dir=/home/${USERNAME}/minecraft
 
 cd ${minecraft_dir}
-echo "Starting Minecraft 1.16.1 Server HOLAYY"
+echo "Starting Minecraft 1.16.4 Server HOLAYY"
 echo "ssss.. don't die to creepers.. KABOOM"
 echo ""
 echo "sudo screen -r minecraft to open and Ctrl-A, Ctrl-D to close"
