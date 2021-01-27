@@ -1,6 +1,6 @@
 # [UPDATE 2.1.0] - World Management on Puzzle Web, Fixed World Manage Logistics
 
-Puzzle Web now full supports world management (Creating new worlds, Switching between worlds, and Removing worlds).
+Puzzle Web now fully supports world management (Creating new worlds, Switching between worlds, and Removing worlds).
 Furthermore, slight UI changes were made, including a back panel that encompasses the display buttons and text, and tiny size adjustments.
 
 !["Puzzle Web"](Pictures/puzzleweb21.PNG)
