@@ -20,7 +20,14 @@ day_of_week=*
 cd ${minecraft_dir}
 
 crontab -l > tempfile
-if [ $# -eq 5 ]; then
+if [ $# -eq 1 ] && [ $1 = "-l" ]; then
+  temp=$(crontab -l | grep server_backup)
+  
+  for i in {1..5} 
+  do 
+    echo "$temp" | cut -d " " -f$i
+  done
+elif [ $# -eq 5 ]; then
   echo "$1 $2 $3 $4 $5 " ${minecraft_dir}/server_backup.sh > tempfile
 else
   echo "${minute} ${hour} ${day_of_month} ${month} ${day_of_week} " ${minecraft_dir}/server_backup.sh > tempfile
