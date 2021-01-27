@@ -36,7 +36,7 @@ is_server_running () {
 while :
 do
 CURRENT_WORLD=$(<${minecraft_dir}/current_world.txt)
-file_exists paper-246.jar start.sh stop.sh server_backup.sh server_restore.sh set_crontab.sh
+file_exists paper-406.jar start.sh stop.sh server_backup.sh server_restore.sh set_crontab.sh
 
 java -version > /dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -53,13 +53,13 @@ if  grep -q '1' requirements.txt ; then
 fi
 
 echo "
-██████╗░██╗░░░██╗███████╗███████╗██╗░░░░░███████╗  ░░███╗░░░░░██████╗░
-██╔══██╗██║░░░██║╚════██║╚════██║██║░░░░░██╔════╝  ░████║░░░░░╚════██╗
-██████╔╝██║░░░██║░░███╔═╝░░███╔═╝██║░░░░░█████╗░░  ██╔██║░░░░░░░███╔═╝
-██╔═══╝░██║░░░██║██╔══╝░░██╔══╝░░██║░░░░░██╔══╝░░  ╚═╝██║░░░░░██╔══╝░░
-██║░░░░░╚██████╔╝███████╗███████╗███████╗███████╗  ███████╗██╗███████╗
-╚═╝░░░░░░╚═════╝░╚══════╝╚══════╝╚══════╝╚══════╝  ╚══════╝╚═╝╚══════╝                                                                     
-A Minecraft Server Manager written by King Lai and Zi Cheng Huang.
+██████╗ ██╗   ██╗███████╗███████╗██╗     ███████╗     ██████╗██╗     ██╗
+██╔══██╗██║   ██║╚══███╔╝╚══███╔╝██║     ██╔════╝    ██╔════╝██║     ██║
+██████╔╝██║   ██║  ███╔╝   ███╔╝ ██║     █████╗      ██║     ██║     ██║
+██╔═══╝ ██║   ██║ ███╔╝   ███╔╝  ██║     ██╔══╝      ██║     ██║     ██║
+██║     ╚██████╔╝███████╗███████╗███████╗███████╗    ╚██████╗███████╗██║
+╚═╝      ╚═════╝ ╚══════╝╚══════╝╚══════╝╚══════╝     ╚═════╝╚══════╝╚═╝                                                                    
+A Minecraft Server Manager written by King Lai and Zi Cheng Huang. (v1.3)
 "
 
 is_server_running

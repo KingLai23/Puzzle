@@ -14,6 +14,13 @@ minecraft_dir=/home/${USERNAME}/minecraft
 
 cd ${minecraft_dir}
 if [ $# -eq 1 ]; then
+  if [ $(ls ${minecraft_dir}/world_list | wc -l) -eq 1 ]; then
+    echo You cannot remove your only world..
+    exit 0
+  elif [ "$1" = "$(cat ${minecraft_dir}/current_world.txt)" ]; then
+    echo You cannot remove the current world..
+    exit 0
+  fi
   sudo rm -r ${minecraft_dir}/world_list/$1/
 fi
 

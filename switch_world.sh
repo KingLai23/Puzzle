@@ -11,13 +11,23 @@ cd /home
 USERNAME=$(ls | cut -f 1 -d " ")
 
 minecraft_dir=/home/${USERNAME}/minecraft
+current_world=$(cat ${minecraft_dir}/current_world.txt)
 
 cd ${minecraft_dir}
 if [ $# -eq 1 ]; then
-  if [ -d "${minecraft_dir}/world_list/$1" ]; then 
+  if [ -d "${minecraft_dir}/world_list/$1" ]; then
+	sudo rm -r ${minecraft_dir}/world_list/${current_world}/world
+	sudo rm -r ${minecraft_dir}/world_list/${current_world}/world_nether
+	sudo rm -r ${minecraft_dir}/world_list/${current_world}/world_the_end
+
+	sudo cp -R ${minecraft_dir}/world ${minecraft_dir}/world_list/${current_world}
+	sudo cp -R ${minecraft_dir}/world_nether ${minecraft_dir}/world_list/${current_world}
+	sudo cp -R ${minecraft_dir}/world_the_end ${minecraft_dir}/world_list/${current_world}
+ 
   	sudo rm -r ${minecraft_dir}/world
   	sudo rm -r ${minecraft_dir}/world_nether
   	sudo rm -r ${minecraft_dir}/world_the_end
+
   	sudo cp -R ${minecraft_dir}/world_list/$1/world .
   	sudo cp -R ${minecraft_dir}/world_list/$1/world_nether .
   	sudo cp -R ${minecraft_dir}/world_list/$1/world_the_end .
