@@ -1,4 +1,22 @@
-# [UPDATE 2.0] - Remote Server Control (Web App)
+# [UPDATE 2.1.0] - World Management on Puzzle Web, Fixed World Manage Logistics
+
+Puzzle Web now full supports world management (Creating new worlds, Switching between worlds, and Removing worlds).
+Furthermore, slight UI changes were made, including a back panel that encompasses the display buttons and text, and tiny size adjustments.
+
+!["Puzzle Web"](Pictures/puzzleweb21.PNG)
+
+Moving on, the logic for managing worlds were changed to deal with bugs, and has no known bugs as of 2.1.0.
+
+Bugs fixed:
+* You can no longer remove your only world (which can cause issues when performing backups).
+* When switching between worlds, you no longer lose your progress in any of the worlds.
+* When creating a new world, you no longer lose progress made in the current world.
+
+Finally, the command line version of Puzzle has been renamed to 'Puzzle CLI'.
+
+!["Puzzle Web"](Pictures/puzzleclimenu.png)
+
+# [UPDATE 2.0.0] - Remote Server Control (Web App)
 
 !["Puzzle Web"](Pictures/puzzleweb.PNG)
 
