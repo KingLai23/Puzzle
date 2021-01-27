@@ -26,10 +26,10 @@ import com.jcraft.jsch.Session;
 @RestController
 public class Controller {
 
-	private static final String HOST = "99.240.195.129";
-	private static final String USER = "zi-server";
-	private static final String PASSWORD = "1324";
-	private static final int PORT = 6113;
+	private static final String HOST = "";
+	private static final String USER = "";
+	private static final String PASSWORD = "";
+	private static final int PORT = 0;
 	
 	private static final String PUZZLE_USER = "admin";
 	private static final String PUZZLE_PASSWORD = "puzzle1324";
