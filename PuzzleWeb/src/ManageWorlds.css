@@ -1,0 +1,119 @@
+:root {
+    --manageworldboxbg: #1e232e;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #c4c4c4;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.mw_header, .mw_world_list, .mw_current_world {
+    color: aliceblue;
+    text-align: center;
+}
+
+.mw_current_world {
+  margin-bottom: 10px;
+}
+
+.mw_header h1 {
+    margin-top: 0;
+    padding-top: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.mw_world_list h2, .mw_current_world h2 {
+    margin: 0;
+    padding-top: 0px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.mw_world_list p, .mwcw {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mw_buttons {
+    margin: auto;
+    width: 77%;
+    margin-top: 15px;
+}
+
+.mw_buttons button {
+    background-color: var(--server_control_btn);
+    color: rgb(221, 221, 221);
+    font-size: 18px;
+    width: 31.66%;
+    height: 60px;
+    margin: 15px 0px 0px;
+    cursor: pointer;
+    border-style: none;
+    border: solid 3px var(--box-border);
+    border-radius: 10px;
+  }
+  
+  .mw_buttons button:hover {
+    background-color: rgb(32, 35, 43);
+    border: solid 3px rgb(69, 72, 83);
+    transition: background-color 0.3s linear;
+  }
+  
+  .mw_buttons button:focus {
+    outline: none;
+  }
+
+  #mw_scl {
+    margin-right: 2.5%;
+  }
+
+  .mw_create, .mw_switch, .mw_remove {
+    background-color: var(--manageworldboxbg);
+    width: 76%;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 10px;
+    padding-bottom: 60px;
+    border: solid 3px var(--restoreborder);
+  }
+  
+  .mw_create_close, .mw_switch_close, .mw_remove_close {
+    text-align: right;
+  }
+  
+  .mw_create button, .mw_switch button, .mw_remove button {
+    background-color: var(--closebtn);
+    color: rgb(221, 221, 221);
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    margin: 8px 9px 0px;
+    cursor: pointer;
+    border-style: none;
+    border: solid 2px var(--closebtnborder);
+    border-radius: 20px;
+  }
+  
+  .mw_create button:hover, .mw_switch button:hover, .mw_remove button:hover {
+    background-color: var(--closebtnhvr);
+    transition: background-color 0.3s linear;
+  }
+  
+  .mw_create button:focus, .mw_switch button:focus, .mw_remove button:focus {
+    outline: none;
+  }

@@ -54,6 +54,8 @@ const SetCron = () => {
     }
 
     const executeCrontab = () => {
+        if(openBackupOpt || openTime) return;
+
         setApplyingCron(true);
 
         var crontab = "0 " + curTime + " \"*\" \"*\" ";
@@ -91,38 +93,40 @@ const SetCron = () => {
             <div className="sc_box">
                 <h1>Select New Schedule</h1>
 
-                <div className="sc_freq">
-                    <div className="sc_freq_title">
-                        <p>Frequency:</p>
-                    </div>
-                    <div className="sc_freq_dd">
-                        <div className="sc_freq_dd_header" onClick={() => toggleBackupDd()}>
-                            <p>{backupOptions[curBackupOpt]}</p>
+                <div className="sc_dropdowns">
+                    <div className="sc_freq">
+                        <div className="sc_freq_title">
+                            <p>Frequency</p>
                         </div>
+                        <div className="sc_freq_dd">
+                            <div className="sc_freq_dd_header" onClick={() => toggleBackupDd()}>
+                                <p>{backupOptions[curBackupOpt]}</p>
+                            </div>
 
-                        {openBackupOpt && <ul className="sc_freq_dd_list">
-                            {backupOptions.map((item, index) => (
-                                <li className="sc_freq_dd_items" key={item} onClick={() => setBackupOption(index)}>{backupOptions[index]}</li>
-                            ))}
-                        </ul>}
-                    </div>
-
-                    <div className="sc_time_title">
-                        <p>Time:</p>
-                    </div>
-                    <div className="sc_time_select">
-                        <div className="sc_time_select_header" onClick={() => toggleTimeDd()}>
-                            <p>{timeOptions[curTime]}</p>
+                            {openBackupOpt && <ul className="sc_freq_dd_list">
+                                {backupOptions.map((item, index) => (
+                                    <li className="sc_freq_dd_items" key={item} onClick={() => setBackupOption(index)}>{backupOptions[index]}</li>
+                                ))}
+                            </ul>}
                         </div>
+                    </div>
+                    <div className="sc_time">
+                        <div className="sc_time_title">
+                            <p>Time</p>
+                        </div>
+                        <div className="sc_time_select">
+                            <div className="sc_time_select_header" onClick={() => toggleTimeDd()}>
+                                <p>{timeOptions[curTime]}</p>
+                            </div>
 
-                        {openTime && <ul className="sc_time_select_list">
-                            {timeOptions.map((item, index) => (
-                                <li className="sc_time_select_items" key={item} onClick={() => setTimeSelect(index)}>{timeOptions[index]}</li>
-                            ))}
-                        </ul>}
+                            {openTime && <ul className="sc_time_select_list">
+                                {timeOptions.map((item, index) => (
+                                    <li className="sc_time_select_items" key={item} onClick={() => setTimeSelect(index)}>{timeOptions[index]}</li>
+                                ))}
+                            </ul>}
+                        </div>
                     </div>
                 </div>
-
                 <div className="sc_confirm">
                     <button onClick={() => executeCrontab()}>Confirm and Apply</button>
                 </div>

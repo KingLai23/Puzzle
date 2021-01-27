@@ -26,13 +26,13 @@ import com.jcraft.jsch.Session;
 @RestController
 public class Controller {
 
-	private static final String HOST = "ENTER YOUR HOST NAME HERE";
-	private static final String USER = "ENTER YOUR USERNAME HERE";
-	private static final String PASSWORD = "ENTER YOUR PASSWORD HERE";
-	private static final int PORT = 22; // CHANGE TO YOUR PORT #
+	private static final String HOST = "99.240.195.129";
+	private static final String USER = "zi-server";
+	private static final String PASSWORD = "1324";
+	private static final int PORT = 6113;
 	
-	private static final String PUZZLE_USER = "ENTER A LOGIN USERNAME HERE";
-	private static final String PUZZLE_PASSWORD = "ENTER A LOGIN PASSWORD HERE";
+	private static final String PUZZLE_USER = "admin";
+	private static final String PUZZLE_PASSWORD = "puzzle1324";
 
 	@RequestMapping(value = "/startMCServer", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> startMinecraftServer(@RequestParam Map<String, String> params,
@@ -119,6 +119,19 @@ public class Controller {
 		return Utils.postResponse(request, params.get("username").equals(PUZZLE_USER) && params.get("password").equals(PUZZLE_PASSWORD) ? "1" : "0", null);
 	}
 
+	@RequestMapping(value = "/getCurrentWorld", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> getCurrentWorld(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		
+		return executeCommand("cat minecraft/current_world.txt", request);
+	}
+	
+	@RequestMapping(value = "/getLog", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> getLog(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		String world = params.get("world") + "-log.txt";
+		return executeCommand("cat minecraft/Minecraft/logs/" + world, request);
+	}
 
 	@RequestMapping(value = "/getCurrentCron", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> getCurrentCron(@RequestParam Map<String, String> params,
@@ -221,6 +234,166 @@ public class Controller {
 		}
 
 		return day + " at " + cron[1] + ":00";
+	}
+	
+	@RequestMapping(value = "/getLogs", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> getLogs(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		
+		String status = "GOOD";
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		try {
+			List<String> inputStream = new ArrayList<String>();
+
+			java.util.Properties config = new java.util.Properties();
+			config.put("StrictHostKeyChecking", "no");
+			JSch jsch = new JSch();
+			Session session = jsch.getSession(USER, HOST, PORT);
+			session.setPassword(PASSWORD);
+			session.setConfig(config);
+			session.connect();
+
+			Channel channel = session.openChannel("exec");
+			((ChannelExec) channel).setCommand("echo " + PASSWORD + " | sudo -S ./minecraft/output_logs.sh");
+			channel.setInputStream(null);
+			((ChannelExec) channel).setErrStream(System.err);
+
+			InputStream in = channel.getInputStream();
+			channel.connect();
+			byte[] tmp = new byte[1024];
+			while (true) {
+				while (in.available() > 0) {
+					int i = in.read(tmp, 0, 1024);
+					if (i < 0)
+						break;
+					inputStream.add(new String(tmp, 0, i));
+				}
+				
+				data.put("Logs", organizeLogs(inputStream));
+
+				if (channel.isClosed()) {
+					data.put("ExitStatus", channel.getExitStatus());
+					break;
+				}
+
+				try {
+					Thread.sleep(500);
+				} catch (Exception ee) {
+					data.clear();
+					status = "Failed to Connect (Error in Thread.sleep)";
+				}
+			}
+
+			channel.disconnect();
+			session.disconnect();
+		} catch (Exception e) {
+			data.clear();
+			status = "Failed to Connect";
+		}
+
+		return Utils.postResponse(request, status, data);
+	}
+	
+	private String[] organizeLogs(List<String> logs) {		
+		String allLogs = "";
+		for (String item : logs) allLogs += item;
+		return allLogs.split("EOF");
+	}
+	
+	@RequestMapping(value = "/getAllWorlds", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> getAllWorlds(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		String status = "GOOD";
+		int exitStatus = 0;
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		List <String> worlds = executeCommandWithReturn("ls minecraft/world_list");
+		
+		if (worlds == null) {
+			status = "FAILED";
+			exitStatus = 1;
+		} else {
+			data.put("worlds", worlds.get(0).split("\n"));
+		}
+		
+		data.put("ExitStatus", exitStatus);
+		
+		return Utils.postResponse(request, status, data);
+	}
+	
+	@RequestMapping(value = "/removeWorld", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> removeWorlds(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		String status = "GOOD";
+
+		executeCommandWithReturn("echo " + PASSWORD + " | sudo -S ./minecraft/remove_world.sh " + params.get("world"));
+		
+		return Utils.postResponse(request, status, null);
+	}
+	
+	@RequestMapping(value = "/switchWorld", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> switchWorld(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		String status = "GOOD";
+		executeCommandWithReturn("echo " + PASSWORD + " | sudo -S ./minecraft/switch_world.sh " + params.get("world"));
+		return Utils.postResponse(request, status, null);
+	}
+	
+	@RequestMapping(value = "/createWorld", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> createWorld(@RequestParam Map<String, String> params,
+			HttpServletRequest request) {
+		String status = "GREAT";
+		executeCommandWithReturn("echo " + PASSWORD + " | sudo -S ./minecraft/create_world.sh " + params.get("world"));
+		return Utils.postResponse(request, status, null);
+	}
+	
+	private List<String> executeCommandWithReturn(String command) {
+		List<String> inputStream = new ArrayList<String>();
+		boolean fail = false;
+		try {
+			java.util.Properties config = new java.util.Properties();
+			config.put("StrictHostKeyChecking", "no");
+			JSch jsch = new JSch();
+			Session session = jsch.getSession(USER, HOST, PORT);
+			session.setPassword(PASSWORD);
+			session.setConfig(config);
+			session.connect();
+
+			Channel channel = session.openChannel("exec");
+			((ChannelExec) channel).setCommand(command);
+			channel.setInputStream(null);
+			((ChannelExec) channel).setErrStream(System.err);
+
+			InputStream in = channel.getInputStream();
+			channel.connect();
+			byte[] tmp = new byte[1024];
+			while (true) {
+				while (in.available() > 0) {
+					int i = in.read(tmp, 0, 1024);
+					if (i < 0)
+						break;
+					inputStream.add(new String(tmp, 0, i));
+				}
+
+				if (channel.isClosed()) {
+					break;
+				}
+
+				try {
+					Thread.sleep(500);
+				} catch (Exception ee) {
+					fail = true;
+				}
+			}
+
+			channel.disconnect();
+			session.disconnect();
+		} catch (Exception e) {
+			fail = true;
+		}
+		
+		return (fail) ? null : inputStream;
 	}
 
 	private @ResponseBody Map<String, Object> executeCommand(String command, HttpServletRequest request) {

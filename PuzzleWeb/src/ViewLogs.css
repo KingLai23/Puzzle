@@ -1,6 +1,12 @@
 :root {
     --restorebg: #1a1f29;
 
+    --logdisplay: #262e3d;
+    --logdisplayborder: #465066;
+
+    --logdisplaybtn: #414b61;
+    --logdisplaybtnhver: #343c4e;
+
     --closebtn:#2f3646;
     --closebtnborder:#262c3b;
     --closebtnhvr: #3f475a;
@@ -12,7 +18,7 @@
     --nopickbtnborder: rgb(70, 70, 70);
 }
 
-.finding-world-loading-symbol, .restoring-loading-symbol {
+.finding-world-loading-symbol, .grab-log-loading-symbol {
     border: 5px solid #f3f3f3;
     border-radius: 50%;
     border-top: 7px solid var(--loading-wheel);
@@ -26,7 +32,7 @@
     margin-top: 20px;
 }
 
-.restoring-loading-symbol {
+.grab-log-loading-symbol {
     margin-top: 40vh;
 }
 
@@ -48,12 +54,12 @@
     }
 }
 
-.rw_header {
+.vl_header {
     color: aliceblue;
     text-align: center;
 }
 
-.rw_header h1 {
+.vl_header h1 {
     margin-top: 0px;
     margin-bottom: 10px;
     padding-top: 5px;
@@ -61,18 +67,18 @@
     font-weight: bold;
 }
 
-.rw_header h2 {
+.vl_header h2 {
     font-size: 18px;
     font-weight: normal;
     padding-bottom: 10px;
 }
 
-.rw_btns {
+.vl_btns {
     width: 85%;
     margin: auto;
 }
 
-.rw_btns button {
+.vl_btns button {
     background-color: var(--server_control_btn);
     color: rgb(221, 221, 221);
     font-size: 14px;
@@ -85,57 +91,46 @@
     border-radius: 10px;
 }
 
-.rw_btns button:hover {
+.vl_btns button:hover {
     background-color: rgb(32, 35, 43);
     border: solid 3px rgb(69, 72, 83);
     transition: background-color 0.3s linear;
 }
 
-.rw_btns button:focus {
+.vl_btns button:focus {
     outline: none;
 }
 
-.confirm_pick {
-    color: aliceblue;
-    text-align: center;
+.log_display {
+    width: 60%;
+    margin: auto;
+    background-color: var(--logdisplay);
+    border: solid 3px var(--logdisplayborder);
+    border-radius: 10px;
+    padding: 20px 40px;
 }
 
-.confirm_pick p {
-    padding-top: 20px;
-    margin-bottom: 0;
-    font-size: 15px;
+.log_display p {
+    color: white;
 }
 
-.confirm_pick h2 {
-    margin-top: 8px;
-    margin-bottom: 20px;
-    font-size: 19px;
-}
-
-.confirm_pick button {
-    background-color: var(--confirmbtn);
+.log_display button {
+    background-color: var(--logdisplaybtn);
     color: rgb(221, 221, 221);
-    font-size: 18px;
-    width: 325px;
-    height: 48px;
-    margin: 5px 2.5%;
+    font-size: 14px;
+    width: 100px;
+    height: 32px;
+    margin-top: 15px;
     cursor: pointer;
     border-style: none;
-    border: solid 3px var(--confirmbtnborder);
-    border-radius: 50px 50px;
+    border-radius: 50px;
 }
 
-.confirm_pick button:hover {
-    background-color: var(--confirmbtnhvr);
-    border: solid 3px var(--confirmbtnborder);
+.log_display button:hover {
+    background-color: var(--logdisplaybtnhver);
     transition: background-color 0.3s linear;
 }
 
-.confirm_pick button:focus {
+.log_display button:focus {
     outline: none;
-}
-
-.no_pick button, .no_pick button:hover {
-    background-color: var(--nopickbtn);
-    border: solid 3px var(--nopickbtnborder);
 }

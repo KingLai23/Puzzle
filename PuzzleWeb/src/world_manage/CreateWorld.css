@@ -1,0 +1,83 @@
+:root {
+    --createworldbtn: rgb(37, 86, 119);
+    --createworldbtnborder: rgb(30, 68, 94);
+    --createworldbtnhover: rgb(62, 119, 141);
+  }
+
+.create_world {
+    color: aliceblue;
+}
+
+.cw_header {
+    text-align: center;
+}
+
+.cw_header h1 {
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.turn_off_server_msg h1 {
+    font-size: 21px;
+    margin-bottom: 0;
+    color: rgb(241, 175, 175);
+}
+
+.cw_process h1 {
+    font-size: 18px;
+    font-weight: normal;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.cw_process textarea {
+    text-align: center;
+    color: rgb(57, 67, 75);
+    background-color: rgb(206, 206, 206);
+    padding: 8px 10px 6px;
+    height: 25px !important;
+    width: 350px !important;
+    outline: none;
+    font-size: 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: normal;
+    resize: none;
+    border-radius: 50px;
+}
+
+.cw_process button {
+    background-color: var(--createworldbtn);
+    color: rgb(221, 221, 221);
+    font-size: 18px;
+    width: 325px;
+    height: 48px;
+    margin: 20px 2.5% 0;
+    cursor: pointer;
+    border-style: none;
+    border: solid 3px var(--createworldbtnborder);
+    border-radius: 50px 50px;
+}
+
+.cw_process button:hover {
+    background-color: var(--createworldbtnhover);
+    transition: background-color 0.3s linear;
+}
+
+.cw_process button:focus {
+    outline: none;
+}
+
+.no_pick button, .no_pick button:hover {
+    background-color: var(--nopickbtn);
+    border: solid 3px var(--nopickbtnborder);
+}
+
+.cw_process p {
+    font-size: 14px;
+    width: 375px;
+    margin: auto;
+    margin-top: 20px;
+}

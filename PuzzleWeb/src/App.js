@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RestoreWorld from './RestoreWorld.js';
 import SetCron from './SetCrontab.js';
+import ViewLogs from './ViewLogs.js';
+import ManageWorlds from './ManageWorlds.js';
 
 function App() {
   const [username, setUsername] = useState("");
@@ -13,10 +15,16 @@ function App() {
   const [loadingMsg, setLoadingMsg] = useState('Grabbing Server Status..');
   const [showLoading, setShowLoading] = useState(false);
   const [activePlayers, setActivePlayers] = useState('N/A');
+
   const [showRestore, setShowRestore] = useState(false);
   const [showCron, setShowCron] = useState(false);
+  const [showLog, setShowLog] = useState(false);
+  const [showWorldManage, setShowWorldManage] = useState(false);
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [showLoginLoading, setShowLoginLoading] = useState(false);
+
+  const [currentWorld, setCurrentWorld] = useState("N/A");
 
   var herokuurl = "https://agile-taiga-59578.herokuapp.com/";
 
@@ -33,6 +41,7 @@ function App() {
     setLoggedIn(true);
     setShowLoading(true);
     fetchActivePlayers();
+    fetchCurrentWorld();
     fetchServerStatus();
   }
 
@@ -46,6 +55,14 @@ function App() {
     setLoggedIn(false);
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchActivePlayers();
+      fetchServerStatus();
+    }, 45000);
+    return () => clearInterval(interval);
+  }, []);
+
   const authenticate = () => {
     setShowLoginLoading(true);
     var url = herokuurl + "authenticate?username=" + username + "&password=" + password;
@@ -55,7 +72,7 @@ function App() {
           localStorage.setItem('loginCheck', true);
           signinSuccess();
         } else {
-          setLoginMsg("Invalid login credentials...");
+          setLoginMsg("Invalid sign in credentials...");
         }
         setShowLoginLoading(false);
       })
@@ -68,13 +85,16 @@ function App() {
     setShowLoading(true);
 
     var url;
+    var shouldRequest = true;
 
     switch (type) {
       case 0:
+        if (serverStatus === 'Online') shouldRequest = false;
         url = herokuurl + "startMCServer";
         setLoadingMsg('Starting Minecraft Server..');
         break;
       case 1:
+        if (serverStatus === 'Offline') shouldRequest = false;
         url = herokuurl + "stopMCServer";
         setLoadingMsg('Stopping Minecraft Server..');
         break;
@@ -88,20 +108,30 @@ function App() {
         break;
     }
 
-    console.log(url)
+    if (shouldRequest) {
+      axios.post(url)
+        .then(res => {
+          setShowLoading(false);
+          fetchServerStatus();
+        })
+        .catch(error => {
+          console.log(error.message)
+          setShowLoading(false);
+        })
+    } else {
+      setShowLoading(false);
+    }
+  }
 
-    axios.post(url)
-      .then(res => {
-        console.log(res.data);
-        setShowLoading(false);
-        fetchServerStatus();
-      })
-      .catch(error => {
-        console.log(error.message)
-        setShowLoading(false);
-      })
-
-
+  const fetchCurrentWorld = () => {
+    // var url = herokuurl + "getCurrentWorld";
+    // axios.post(url)
+    //   .then(res => {
+    //     setCurrentWorld((res.data.data.InputStream[0]).trim());
+    //   })
+    //   .catch(error => {
+    //     console.log(error.message)
+    //   })
   }
 
   const fetchServerStatus = () => {
@@ -134,13 +164,33 @@ function App() {
   }
 
   const toggleRestore = () => {
+    toggleEverythingOff();
     setShowRestore(!showRestore);
-    setShowCron(false);
   }
 
   const toggleCron = () => {
+    toggleEverythingOff();
     setShowCron(!showCron);
+  }
+
+  const toggleLogs = () => {
+    toggleEverythingOff();
+    setShowLog(!showLog);
+  }
+
+  const toggleWorld = () => {
+    fetchCurrentWorld();
+    fetchServerStatus();
+    fetchActivePlayers();
+    toggleEverythingOff();
+    setShowWorldManage(!showWorldManage);
+  }
+
+  const toggleEverythingOff = () => {
     setShowRestore(false);
+    setShowCron(false);
+    setShowLog(false);
+    setShowWorldManage(false);
   }
 
   return (
@@ -177,7 +227,7 @@ function App() {
             {showLoginLoading ? (
               <div>
                 <div className="login-symbol"></div>
-                <div className="loading-msg">Logging in...</div>
+                <div className="loading-msg">Signing in...</div>
               </div>
             ) : (
                 <>
@@ -204,58 +254,86 @@ function App() {
         <button onClick={() => logout()}>Log Out</button>
       </div>
 
-      <div className="server_status">
-        <div className="ss_title">
-          <p>Server Status</p>
-        </div>
-        <div className="ss_status">
-          <p>{serverStatus}</p>
-        </div>
-      </div>
+      <div className="main_panel">
+        {/* <h2>Current world:</h2>
+        <h1>{currentWorld}</h1> */}
 
-      <div className="active_players">
-        <div className="ap_title">
-          <p>Active Players</p>
-        </div>
-        <div className="ap_info">
-          <p>{activePlayers}</p>
-        </div>
-      </div>
-
-      <div className="server_controls">
-        <button id='scl' onClick={() => executeServerControl(0)}>Start</button>
-        <button id='scl' onClick={() => executeServerControl(1)}>Stop</button>
-        <button id='scl' onClick={() => executeServerControl(2)}>Restart</button>
-        <button onClick={() => executeServerControl(3)}>Backup</button>
-      </div>
-
-      <div className="server_controls_2">
-        <button id='scl' onClick={() => toggleRestore()}>Restore World</button>
-        <button onClick={() => toggleCron()}>Set Auto-Backups</button>
-      </div>
-
-      { showRestore ? (
-        <div className="restore">
-          <div className="restore_close">
-            <button onClick={() => toggleRestore()}>x</button>
+        <div className="server_status">
+          <div className="ss_title">
+            <p>Server Status</p>
           </div>
-          <RestoreWorld />
-        </div>
-      ) : (
-          <></>
-        )}
-
-      { showCron ? (
-        <div className="crontab">
-          <div className="crontab_close">
-            <button onClick={() => toggleCron()}>x</button>
+          <div className="ss_status">
+            <p>{serverStatus}</p>
           </div>
-          <SetCron />
         </div>
-      ) : (
-          <></>
-        )}
 
+        <div className="active_players">
+          <div className="ap_title">
+            <p>Active Players</p>
+          </div>
+          <div className="ap_info">
+            <p>{activePlayers}</p>
+          </div>
+        </div>
+
+        <div className="server_controls">
+          <button id='scl' onClick={() => executeServerControl(0)}>Start</button>
+          <button id='scl' onClick={() => executeServerControl(1)}>Stop</button>
+          <button id='scl' onClick={() => executeServerControl(2)}>Restart</button>
+          <button onClick={() => executeServerControl(3)}>Backup</button>
+        </div>
+
+        <div className="server_controls_2">
+          <button id='scl' onClick={() => toggleRestore()}>Restore World</button>
+          <button onClick={() => toggleCron()}>Set Auto-Backups</button>
+          <button id='scl' onClick={() => toggleLogs()}>View Logs</button>
+          <button onClick={() => toggleWorld()}>Manage Worlds</button>
+        </div>
+
+        {showRestore ? (
+          <div className="restore">
+            <div className="restore_close">
+              <button onClick={() => toggleRestore()}>x</button>
+            </div>
+            <RestoreWorld />
+          </div>
+        ) : (
+            <></>
+          )}
+
+        {showCron ? (
+          <div className="crontab">
+            <div className="crontab_close">
+              <button onClick={() => toggleCron()}>x</button>
+            </div>
+            <SetCron />
+          </div>
+        ) : (
+            <></>
+          )}
+
+        {showLog ? (
+          <div className="log">
+            <div className="log_close">
+              <button onClick={() => toggleLogs()}>x</button>
+            </div>
+            <ViewLogs />
+          </div>
+        ) : (
+            <></>
+          )}
+
+        {showWorldManage ? (
+          <div className="world_manage">
+            <div className="world_manage_close">
+              <button onClick={() => toggleWorld()}>x</button>
+            </div>
+            <ManageWorlds />
+          </div>
+        ) : (
+            <></>
+          )}
+      </div>
       {/* <div className="footer">
           <p>Puzzle v2.0 2020 - by King Lai and ZiCheng Huang</p>
         </div> */}

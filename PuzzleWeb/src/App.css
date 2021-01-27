@@ -1,5 +1,7 @@
 :root {
-  --bg: #272b33;
+  --panelbg: #282e38;
+  --panelborder: #3b4352;
+  --bg: #232730;
 
   --loginbtn: rgb(61, 75, 90);
   --loginbtnhover: rgb(55, 64, 75);
@@ -9,7 +11,7 @@
   --server_control_btn: #181c25;
   --box-border: rgb(53, 58, 73);
   --overlay: rgba(23, 28, 34, 0.5);
-  --loginoverlay: rgba(14, 18, 22, 0.7);
+  --loginoverlay: rgba(14, 18, 22, 0.9);
   --restorebg: #1a1f29;
   --restoreborder: rgb(45, 53, 66);
 }
@@ -35,15 +37,19 @@ body {
 
 .login-prompt {
   color: white;
-  margin: auto;
-  margin-top: 22vh;
   width: 100%;
   text-align: center;
+  margin: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .login-prompt h1 {
   font-size: 45px;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .login-prompt h2 {
@@ -61,9 +67,9 @@ body {
   text-align: center;
   color: rgb(57, 67, 75);
   background-color: rgb(172, 172, 172);
-  padding: 16px 10px 8px;
-  height: 40px !important;
-  width: 450px !important;
+  padding: 14px 10px 8px;
+  height: 35px !important;
+  width: 425px !important;
   outline: none;
   font-size: 28px;
   font-family: 'Noto Sans JP', sans-serif;
@@ -75,13 +81,13 @@ body {
 .login-prompt button {
   background-color: var(--loginbtn);
   color: rgb(221, 221, 221);
-  font-size: 29px;
-  width: 225px;
-  height: 60px;
+  font-size: 24px;
+  width: 180px;
+  height: 55px;
   margin: 20px 0;
   cursor: pointer;
   border-style: none;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 
 .login-prompt button:hover {
@@ -151,7 +157,7 @@ body {
 
 .header {
   background-color: var(--header);
-  box-shadow: 0px 2px rgba(17, 21, 36, 0.733);
+  border-bottom: 4px solid var(--panelborder);
   margin: 0;
   text-align: center;
 }
@@ -190,18 +196,44 @@ body {
   font-size: 20px;
 }
 
+.main_panel {
+  width: 1050px;
+  margin: 80px auto 100px;
+  background-color: var(--panelbg);
+  padding: 70px 0 70px;
+  border-radius: 10px;
+  border: solid 4px var(--panelborder);
+  text-align: center;
+}
+
+.main_panel h2 {
+  font-size: 15px;
+  color: rgb(214, 214, 214);
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+.main_panel h1 {
+  font-size: 29px;
+  color: rgb(214, 214, 214);
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
 .ss_title, .ss_status, .ap_title, .ap_info {
   background-color: var(--box);
 }
 
 .server_status {
-  width: 800px;
-  margin: 100px auto 20px;
+  width: 76%;
+  margin: auto;
 }
 
 .active_players {
-  width: 800px;
-  margin: 190px auto 20px;
+  width: 76%;
+  margin: auto;
+  margin-top: 88px;
 }
 
 .server_status p, .active_players p {
@@ -224,12 +256,8 @@ body {
 }
 
 .server_controls, .server_controls_2 {
-  width: 800px;
-  margin: 280px auto 20px;
-}
-
-.server_controls_2 {
-  margin-top: 0px;
+  width: 76%;
+  margin: auto;
 }
 
 .server_controls button, .server_controls_2 button {
@@ -238,7 +266,7 @@ body {
   font-size: 18px;
   width: 21.25%;
   height: 75px;
-  margin: 0px 0px;
+  margin: 15px 0px 0px;
   cursor: pointer;
   border-style: none;
   border: solid 3px var(--box-border);
@@ -263,20 +291,21 @@ body {
   margin-right: 5%;
 }
 
-.restore, .crontab {
+.restore, .crontab, .log, .world_manage {
   background-color: var(--restorebg);
-  width: 800px;
-  margin: 0 auto 20px;
+  width: 76%;
+  margin: auto;
+  margin-top: 15px;
   border-radius: 10px;
-  padding-bottom: 40px;
-  border: solid 2px var(--restoreborder);
+  padding-bottom: 60px;
+  border: solid 3px var(--restoreborder);
 }
 
-.restore_close, .crontab_close {
+.restore_close, .crontab_close, .log_close, .world_manage_close {
   text-align: right;
 }
 
-.restore button, .crontab button {
+.restore button, .crontab button, .log button, .world_manage button {
   background-color: var(--closebtn);
   color: rgb(221, 221, 221);
   font-size: 14px;
@@ -289,12 +318,12 @@ body {
   border-radius: 20px;
 }
 
-.restore button:hover, .crontab button:hover {
+.restore button:hover, .crontab button:hover, .log button:hover, .world_manage button:hover {
   background-color: var(--closebtnhvr);
   transition: background-color 0.3s linear;
 }
 
-.restore button:focus, .crontab button:focus {
+.restore button:focus, .crontab button:focus, .log button:focus, .world_manage button:focus {
   outline: none;
 }
 
@@ -313,4 +342,16 @@ body {
   margin: 0;
   color: rgb(161, 161, 161);
   width: 100%;
+}
+
+@media screen and (max-width: 1250px) {
+  .main_panel {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .main_panel {
+    width: 760px;
+  }
 }

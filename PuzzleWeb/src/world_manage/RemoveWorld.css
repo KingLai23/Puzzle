@@ -1,0 +1,100 @@
+.remove_world {
+    color: aliceblue;
+}
+
+.rw_header {
+    text-align: center;
+}
+
+.rw_header h1 {
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.turn_off_server_msg h1 {
+    font-size: 21px;
+    margin-bottom: 0;
+    color: rgb(241, 175, 175);
+}
+
+.rmw_btns {
+    width: 70%;
+    margin: auto;
+}
+
+.rmw_btns button {
+    background-color: var(--server_control_btn);
+    color: rgb(221, 221, 221);
+    font-size: 16px;
+    font-weight: bold;
+    width: 47%;
+    height: 40px;
+    margin: 5px 1.5%;
+    cursor: pointer;
+    border-style: none;
+    border: solid 2px var(--box-border);
+    border-radius: 50px;
+}
+
+.rmw_btns button:hover {
+    background-color: rgb(32, 35, 43);
+    border: solid 3px rgb(69, 72, 83);
+    transition: background-color 0.3s linear;
+}
+
+.rmw_btns button:focus {
+    outline: none;
+}
+
+.remove_world h3 {
+    font-size: 18px;
+}
+
+.rw_msg h1 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.rw_msg h2 {
+    font-size: 20px;
+    margin-top: 2px;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+.rw_msg_chose_current h1 {
+    margin-bottom: 10px;
+}
+
+.rw_msg_btn button {
+    background-color: var(--confirmbtn);
+    color: rgb(221, 221, 221);
+    font-size: 18px;
+    width: 325px;
+    height: 48px;
+    margin: 5px 2.5%;
+    cursor: pointer;
+    border-style: none;
+    border: solid 3px var(--confirmbtnborder);
+    border-radius: 50px 50px;
+}
+
+.rw_msg_btn button:hover {
+    background-color: var(--confirmbtnhvr);
+    border: solid 3px var(--confirmbtnborder);
+    transition: background-color 0.3s linear;
+}
+
+.rw_msg_btn button:focus {
+    outline: none;
+}
+
+.no_pick button, .no_pick button:hover {
+    background-color: var(--nopickbtn);
+    border: solid 3px var(--nopickbtnborder);
+}
